@@ -1,0 +1,7 @@
+import java.io.*;
+import java.util.*;
+public class Main {
+ static final long MOD=1000000007;static long pow(long a,long b){long r=1;while(b>0){if((b&1)>0)r=r*a%MOD;a=a*a%MOD;b>>=1;}return r;}
+ static class F{byte[] b=new byte[65536];int p,z;int read()throws Exception{if(p==z){z=System.in.read(b);p=0;if(z<0)return -1;}return b[p++];}int next()throws Exception{int c,v=0;do{c=read();}while(c<=32&&c>=0);while(c>32){v=v*10+c-48;c=read();}return v;}}
+ public static void main(String[] args)throws Exception{long[] fact=new long[200001],inv=new long[200001];fact[0]=1;for(int i=1;i<fact.length;i++)fact[i]=fact[i-1]*i%MOD;inv[200000]=pow(fact[200000],MOD-2);for(int i=200000;i>0;i--)inv[i-1]=inv[i]*i%MOD;F in=new F();int t=in.next();StringBuilder out=new StringBuilder();while(t-->0){int n=in.next(),x=in.next();long[] sum=new long[n];for(int i=0;i<n;i++)sum[i]=in.next()%x;int[] head=new int[n],to=new int[2*n-2],next=new int[2*n-2];Arrays.fill(head,-1);int e=0;for(int i=1;i<n;i++){int a=in.next()-1,b=in.next()-1;to[e]=b;next[e]=head[a];head[a]=e++;to[e]=a;next[e]=head[b];head[b]=e++;}int[] par=new int[n],order=new int[n];Arrays.fill(par,-1);par[0]=-2;order[0]=0;int size=1;for(int i=0;i<size;i++){int u=order[i];for(int j=head[u];j!=-1;j=next[j]){int v=to[j];if(v==par[u])continue;par[v]=u;order[size++]=v;}}int m=0;for(int i=n-1;i>0;i--){int u=order[i];if(sum[u]==0)m++;sum[par[u]]=(sum[par[u]]+sum[u])%x;}for(int k=0;k<n;k++){long ans=(sum[0]!=0||k>m)?0:fact[m]*inv[k]%MOD*inv[m-k]%MOD;out.append(ans).append(k==n-1?'\n':' ');}}System.out.print(out);}
+}

@@ -1,0 +1,5 @@
+import java.util.*;
+public class Main {
+ static class Fast {byte[] b=new byte[65536];int p,l;int read()throws Exception{if(p==l){l=System.in.read(b);p=0;if(l<0)return -1;}return b[p++];}int next()throws Exception{int c;do{c=read();}while(c<=32&&c!=-1);int x=0;while(c>32){x=x*10+c-48;c=read();}return x;}}
+ public static void main(String[] args)throws Exception{Fast in=new Fast();int t=in.next();StringBuilder out=new StringBuilder();while(t-->0){int n=in.next(),q=in.next();int[] a=new int[n],right=new int[q];for(int i=0;i<n;i++)a[i]=in.next();long[] order=new long[q],ans=new long[q],bit=new long[100001];for(int i=0;i<q;i++){order[i]=((long)in.next()<<32)|i;right[i]=in.next();}Arrays.sort(order);int used=0;long total=0;for(long query:order){int l=(int)(query>>>32),index=(int)query;while(used<=l){int value=a[used++];total+=value;for(int k=value;k<bit.length;k+=k&-k)bit[k]+=value;}long smaller=0;for(int k=a[right[index]];k>0;k-=k&-k)smaller+=bit[k];ans[index]=total-smaller;}for(int i=0;i<q;i++){if(i>0)out.append(' ');out.append(ans[i]);}out.append('\n');}System.out.print(out);}
+}
