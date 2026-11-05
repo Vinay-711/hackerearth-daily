@@ -1,0 +1,1 @@
+import java.util.Scanner; public class Main { public static void main(String[] args) { Scanner sc = new Scanner(System.in); if (!sc.hasNextInt()) return; int n = sc.nextInt(); long product = 1; long mod = 1000000007; for (int i = 0; i < n; i++) { if (sc.hasNextLong()) { product = (product * sc.nextLong()) % mod; } } System.out.println(product); sc.close(); } }
