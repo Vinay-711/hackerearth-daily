@@ -1,0 +1,126 @@
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.io.IOException;
+import java.util.Arrays;
+
+public class TestClass {
+    static class FastScanner {
+        private final InputStream in = System.in;
+        private final byte[] buffer = new byte[32768];
+        private int ptr = 0;
+        private int buflen = 0;
+
+        private boolean hasNextByte() {
+            if (ptr < buflen) return true;
+            ptr = 0;
+            try {
+                buflen = in.read(buffer);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return buflen > 0;
+        }
+
+        private int readByte() {
+            if (hasNextByte()) return buffer[ptr++];
+            return -1;
+        }
+
+        public int nextInt() {
+            int b = readByte();
+            while (b <= 32) {
+                if (b == -1) return -1;
+                b = readByte();
+            }
+            int res = 0;
+            while (b >= '0' && b <= '9') {
+                res = res * 10 + (b - '0');
+                b = readByte();
+            }
+            return res;
+        }
+    }
+
+    static int[] head;
+    static int[] to;
+    static int[] next;
+    static int edgeCount = 0;
+
+    static void addEdge(int u, int v) {
+        to[edgeCount] = v;
+        next[edgeCount] = head[u];
+        head[u] = edgeCount++;
+    }
+
+    public static void main(String[] args) {
+        FastScanner scanner = new FastScanner();
+        int n = scanner.nextInt();
+        if (n == -1) return;
+        int q = scanner.nextInt();
+
+        head = new int[n + 1];
+        Arrays.fill(head, -1);
+        to = new int[2 * n];
+        next = new int[2 * n];
+
+        for (int i = 0; i < n - 1; i++) {
+            int u = scanner.nextInt();
+            int v = scanner.nextInt();
+            addEdge(u, v);
+            addEdge(v, u);
+        }
+
+        int[] tin = new int[n + 1];
+        int[] tout = new int[n + 1];
+        int timer = 0;
+
+        int[] stack = new int[n + 1];
+        int[] edgeIdx = new int[n + 1];
+        int[] parent = new int[n + 1];
+
+        int top = 0;
+        stack[top] = 1;
+        parent[1] = 0;
+        tin[1] = ++timer;
+        edgeIdx[1] = head[1];
+
+        while (top >= 0) {
+            int u = stack[top];
+            int e = edgeIdx[u];
+            boolean moved = false;
+
+            while (e != -1) {
+                int v = to[e];
+                edgeIdx[u] = next[e];
+                if (v != parent[u]) {
+                    parent[v] = u;
+                    tin[v] = ++timer;
+                    top++;
+                    stack[top] = v;
+                    edgeIdx[v] = head[v];
+                    moved = true;
+                    break;
+                }
+                e = next[e];
+            }
+
+            if (!moved) {
+                tout[u] = timer;
+                top--;
+            }
+        }
+
+        PrintWriter out = new PrintWriter(System.out);
+        for (int i = 0; i < q; i++) {
+            int x = scanner.nextInt();
+            int y = scanner.nextInt();
+            if (tin[x] <= tin[y] && tout[x] >= tout[y]) {
+                out.println("YES");
+            } else {
+                out.println("NO");
+            }
+        }
+        out.flush();
+    }
+}
