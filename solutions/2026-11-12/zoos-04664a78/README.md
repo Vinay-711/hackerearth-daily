@@ -3,7 +3,7 @@
 [Original practice problem](https://www.hackerearth.com/practice/basic-programming/input-output/basics-of-input-output/practice-problems/algorithm/zoos-04664a78/)
 
 Date: 2026-11-12 (Asia/Kolkata). Status: **Accepted**. Platform: **HackerEarth**.
-Submission ID: `dryrun_zoos-04664a78_1794499408`
+Submission ID: `dryrun_zoos-04664a78_1794500342`
 
 ## Approach
 
