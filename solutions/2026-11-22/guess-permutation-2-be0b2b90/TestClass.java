@@ -10,9 +10,8 @@ public class TestClass {
         while (T-- > 0) {
             int N = Integer.parseInt(br.readLine().trim());
             StringTokenizer st = new StringTokenizer(br.readLine());
-            long prefix = 0L;
+            long[] arr = new long[N];
             long total = 0L;
-            long[] arr = new long[N]; // store to reuse for prefix check after total read
             for (int i = 0; i < N; i++) {
                 long val = Long.parseLong(st.nextToken());
                 arr[i] = val;
@@ -23,10 +22,11 @@ public class TestClass {
                 sb.append("NO\n");
                 continue;
             }
+            long prefix = 0L;
             boolean ok = true;
             for (int i = 0; i < N; i++) {
                 prefix += arr[i];
-                long need = (long) (i + 1) * (i + 2) / 2; // (i+1)*(i+2)/2 = sum 1..(i+1)
+                long need = (long) (i + 1) * (i + 2) / 2; // sum 1..(i+1)
                 if (prefix < need) {
                     ok = false;
                     break;

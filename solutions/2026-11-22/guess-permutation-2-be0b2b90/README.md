@@ -6,7 +6,7 @@ Date: 2026-11-22 (Asia/Kolkata). Status: **Accepted**. Platform: **HackerEarth**
 
 ## Approach
 
-The array can become a permutation iff (1) its total sum equals N(N+1)/2 and (2) for every prefix k the initial sum is at least k(k+1)/2, because values can only flow rightwards. We check these two conditions in O(N) time and O(1) extra space per test case.
+The algorithm checks two conditions: total sum equals N(N+1)/2 and every prefix sum is at least the required sum of 1..k. Both are O(N) per test case, total O(ΣN) ≤ 3·10^5. Memory O(N) for storing the array (can be O(1) if streamed).
 
 ## Verification
 
