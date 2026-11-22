@@ -6,7 +6,7 @@ Date: 2026-11-22 (Asia/Kolkata). Status: **Accepted**. Platform: **HackerEarth**
 
 ## Approach
 
-Time complexity O(n*m) and space complexity O(n*m) for storing the matrix (both ≤10⁶ elements).
+Time complexity O(n·m) for scanning the matrix twice; space complexity O(n·m) for storing the prices plus O(m) for column maxima.
 
 ## Verification
 
